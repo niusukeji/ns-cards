@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>上海牛苏科技 - 智慧监测电子名片</title>
+    
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 引入 Lucide 图标库 (原生版) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { -webkit-tap-highlight-color: transparent; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* 动画类 */
+        .modal-enter { animation: fadeIn 0.2s ease-out forwards; }
+        .modal-content-enter { animation: zoomIn 0.2s ease-out forwards; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    </style>
+</head>
+<body class="bg-slate-100 font-sans text-slate-900 pb-12">
+
+    <!-- 顶部导航 -->
+    <header class="bg-white shadow-sm sticky top-0 z-30">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="bg-blue-600 p-2 rounded-lg">
+                    <i data-lucide="building-2" class="text-white w-5 h-5"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-900 tracking-tight leading-none">上海牛苏科技</h1>
+                    <p class="text-xs text-slate-500 font-medium">系列产品电子名片集</p>
+                </div>
+            </div>
+            <a href="tel:021-12345678" class="text-sm font-medium text-blue-600 bg-blue-50 px-4 py-2 rounded-full hover:bg-blue-100 transition-colors no-underline">
+                联系我们
+            </a>
+        </div>
+    </header>
+
+    <!--主要内容区域 -->
+    <main class="max-w-5xl mx-auto px-4 pt-8">
+        <div class="mb-8 text-center">
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">核心业务一览</h2>
+            <p class="text-slate-500 max-w-xl mx-auto">
+                点击下方名片查看详细产品优势与效益分析
+            </p>
+        </div>
+
+        <!-- 卡片列表容器 -->
+        <div id="card-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            <!-- JS将在这里生成卡片 -->
+        </div>
+    </main>
+
+    <footer class="mt-16 text-center text-slate-400 text-sm pb-8">
+        <p>© 2026 上海牛苏科技有限公司 | 智慧监测领跑者</p>
+    </footer>
+
+    <!-- 弹窗模态框 (默认隐藏) -->
+    <div id="modal-overlay" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div id="modal-content" class="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl flex flex-col relative">
+            <!-- 弹窗内容将由JS动态填充 -->
+        </div>
+    </div>
+
+    <!-- 逻辑脚本 -->
+    <script>
+        // --- 核心数据 ---
+        const cardData = [
+            {
+                id: 1,
+                title: "公司简介",
+                subtitle: "智慧监测领跑者",
+                icon: "building-2",
+                color: "bg-blue-600",
+                textColor: "text-blue-600",
+                summary: "上海牛苏科技有限公司成立于2015年6月，深耕工业物联网与智慧运维领域。",
+                details: {
+                    type: "intro",
+                    intro: "上海牛苏科技有限公司成立于2015年6月，由国内资深行业专家联合创立，是国内唯一深耕工业物联网与智慧运维领域、致力于成为中国智慧监测领跑者的创新型科技企业。公司聚焦七大核心业务板块，构建“咨询-研发-制造-运营”全产业链一站式服务体系，提供从现场感知、边缘计算到云平台分析的一体化解决方案。核心产品已落地能源、化工等多行业，覆盖国内外多区域，以精准感知、智能管控优势破解行业瓶颈，筑牢多场景智能化安全监测体系。"
+                }
+            },
+            {
+                id: 2,
+                title: "动设备智慧监测",
+                subtitle: "系列产品之一",
+                icon: "activity",
+                color: "bg-emerald-500",
+                textColor: "text-emerald-500",
+                summary: "非破坏性安装，AI 2分钟生成诊断报告，预警准确率超90%。",
+                details: {
+                    type: "product",
+                    advantages: "非破坏性安装无需停机，传感器适配-40℃至120℃恶劣工况；24小时不间断监测，提前48小时预警隐患（准确率超90%），AI 2分钟生成诊断报告，配套远程专家会诊。",
+                    painPoints: "解决人工巡检难辨早期隐性隐患、恶劣工况监测盲区、故障诊断低效致非计划停机、定期检修成本高、数据碎片化无法支撑运维优化等问题。",
+                    benefits: "提升设备运行时间10%-20%，减少非计划停机损失30%以上，总维护成本降低5%-10%，减少备件损耗，适配多行业场景提升核心竞争力。"
+                }
+            },
+            {
+                id: 3,
+                title: "静设备智慧监测",
+                subtitle: "系列产品之二",
+                icon: "box",
+                color: "bg-cyan-600",
+                textColor: "text-cyan-600",
+                summary: "提前72小时预警泄漏与腐蚀，适配强腐蚀、防爆工况。",
+                details: {
+                    type: "product",
+                    advantages: "非破坏性安装适配各类静设备，传感器耐受-50℃至150℃及强腐蚀、防爆工况；提前72小时预警隐患（泄漏、腐蚀预警准确率超92%），AI生成报告实现数据留痕追溯。",
+                    painPoints: "破解静设备隐性隐患难识别、人工巡检覆盖不全、定期检修影响生产、数据无法追溯、合规达标难等痛点。",
+                    benefits: "减少非计划停机30%以上，降低检修成本15%-25%，延长设备寿命5%-10%，规避环保处罚成本，优化资源配置提升市场认可度。"
+                }
+            },
+            {
+                id: 4,
+                title: "城市生命线监测",
+                subtitle: "系列产品之三 (含四板块)",
+                icon: "droplets",
+                color: "bg-indigo-500",
+                textColor: "text-indigo-500",
+                summary: "涵盖供水桥隧、燃气、管廊及化工交通四大板块，基于光纤传感技术。",
+                details: {
+                    type: "complex",
+                    subSections: [
+                        {
+                            title: "1. 供水、排水、供热、桥隧安全预测性监测系统",
+                            advantages: "基于分布式光纤传感技术，全域无盲监测（报警准确率≥95%），非开挖安装适配存量改造，无源防爆抗干扰，纳入应急管理部“智慧应急”星火计划。",
+                            painPoints: "解决管网桥隧隐蔽致巡检低效预警滞后、存量设施改造影响大、运维成本高、应急响应慢等问题。",
+                            benefits: "运维成本降低60%，减少供排热及交通中断损失，契合智慧城市建设需求，降低改造施工成本。"
+                        },
+                        {
+                            title: "2. 燃气行业新技术检测系统",
+                            advantages: "精准识别微小泄漏与腐蚀（准确率≥95%），单根光纤实现数公里管网24小时监测，无源防爆非开挖安装，构建智能闭环管理。",
+                            painPoints: "破解泄漏检测精度低、第三方施工破坏防控难、存量管网改造难、运维风险高及数据处理弱等问题。",
+                            benefits: "降低60%以上人工成本，减少燃气漏损及事故赔偿损失，延长管网使用寿命，规避停气隐性损失。"
+                        },
+                        {
+                            title: "3. 地下建筑结构、化工园区管廊等安全预测性监测系统",
+                            advantages: "全维度监测多参数（准确率≥95%），无源光纤适配恶劣环境（寿命25年），微创安装不影响运营，纳入“智慧应急”星火计划。",
+                            painPoints: "解决结构监测覆盖不足、设备环境适应性差、改造施工影响运营、数据碎片化应急滞后等问题。",
+                            benefits: "建设成本为点式传感器方案的1/3至1/2，运维费近乎为零，避免化工停产、港口停运等高额损失。"
+                        },
+                        {
+                            title: "4. 化工企业生产、轨道交通、电力系统安全预测性监测系统",
+                            advantages: "全工况全域监测（准确率≥95%），无源防爆抗干扰，微创不停机安装，构建行业专属一体化平台。",
+                            painPoints: "破解复杂场景监测盲区、停机损失惨重、运维风险高成本高、数据处理及应急响应弱等问题。",
+                            benefits: "降低60%以上人工成本，规避行业全线停机隐性损失，延长设备设施使用寿命，提升生产连续性。"
+                        }
+                    ]
+                }
+            },
+            {
+                id: 5,
+                title: "用电安全智慧监测",
+                subtitle: "系列产品之四",
+                icon: "zap",
+                color: "bg-amber-500",
+                textColor: "text-amber-500",
+                summary: "AI故障预测准确率超95%，故障处置缩至30分钟内。",
+                details: {
+                    type: "product",
+                    advantages: "模块化安装适配新旧配电房，全域多维度监测，支持远程无人值守；AI故障预测（准确率超95%），减少80%巡检频次，故障处置缩至30分钟内。",
+                    painPoints: "解决人工巡检低效不均、风险预警滞后、数据孤岛、运维成本高、应急处置薄弱等问题。",
+                    benefits: "运维人力成本降低60%，减少非计划停电及能耗损失，延长设备寿命30%以上，推动运维向主动预防转型。"
+                }
+            },
+            {
+                id: 6,
+                title: "消防泵房智慧监测",
+                subtitle: "系列产品之五",
+                icon: "flame",
+                color: "bg-red-500",
+                textColor: "text-red-500",
+                summary: "“手机APP+泵房监测”一体化管控，人力成本降低80%。",
+                details: {
+                    type: "product",
+                    advantages: "“手机APP+泵房监测”一体化管控，三级智能报警多渠道推送，非破坏性安装适配老旧泵房，毫秒级预警且人力成本降80%。",
+                    painPoints: "破解设备缺乏集中监测、报警滞后误报高、应急联动不足、维保流程不标准等问题。",
+                    benefits: "降低运维维保成本，规避消防处罚与火灾扩大损失，提升园区招商吸引力及企业竞争力。"
+                }
+            },
+            {
+                id: 7,
+                title: "气体智慧监测",
+                subtitle: "系列产品之六",
+                icon: "wind",
+                color: "bg-teal-500",
+                textColor: "text-teal-500",
+                summary: "Exd II CT6防爆，IP67防水防尘，误报率低于1%。",
+                details: {
+                    type: "product",
+                    advantages: "多方式无布线安装，Exd II CT6防爆、IP67防水防尘，低功耗电池续航超5年；误报率低于1%，Adhoc无线传输稳定。",
+                    painPoints: "解决传统设备精度低误报高、部署传输难、适配性差功耗高、安装影响生产、数据割裂管控低效等问题。",
+                    benefits: "大幅降低运维及电池更换成本，避免气体隐患致生产停机、事故罚款，提升生产稳定性。"
+                }
+            },
+            {
+                id: 8,
+                title: "软起动电机监测",
+                subtitle: "系列产品之七",
+                icon: "cpu",
+                color: "bg-violet-600",
+                textColor: "text-violet-600",
+                summary: "4G/5G远程管理，降低20%-25%电力消耗。",
+                details: {
+                    type: "product",
+                    advantages: "全维度监测提前预判故障，负载自学习优化参数，4G/5G远程管理，抗电磁干扰适配性强。",
+                    painPoints: "破解故障预警滞后、运维模式粗放成本高、参数固定能耗高、数据碎片化等问题。",
+                    benefits: "降低30%以上运维人工成本，减少停机损失，降低20%-25%电力消耗，延长电机及核心部件寿命。"
+                }
+            }
+        ];
+
+        // --- 渲染逻辑 ---
+        
+        function renderCards() {
+            const container = document.getElementById('card-container');
+            let html = '';
+
+            cardData.forEach(card => {
+                html += `
+                <div onclick="openModal(${card.id})" 
+                     class="group bg-white rounded-2xl p-0 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-slate-200 hover:border-blue-200 hover:-translate-y-1 overflow-hidden flex flex-col active:scale-95">
+                    <div class="flex h-full">
+                        <div class="${card.color} w-3 shrink-0"></div>
+                        <div class="p-5 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="p-2.5 rounded-xl ${card.color} bg-opacity-10 ${card.textColor}">
+                                        <i data-lucide="${card.icon}" class="w-6 h-6"></i>
+                                    </div>
+                                    <span class="text-slate-300 group-hover:text-blue-500 transition-colors">
+                                        <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                                    </span>
+                                </div>
+                                
+                                <h3 class="text-lg font-bold text-slate-800 mb-1 group-hover:text-blue-600 transition-colors">
+                                    ${card.title}
+                                </h3>
+                                <div class="inline-block px-2 py-0.5 bg-slate-100 rounded text-xs font-semibold text-slate-600 mb-3">
+                                    ${card.subtitle}
+                                </div>
+                                
+                                <p class="text-sm text-slate-500 leading-relaxed">
+                                    ${card.summary}
+                                </p>
+                            </div>
+                            
+                            <div class="mt-4 pt-4 border-t border-slate-50 flex items-center text-xs font-medium text-slate-400 group-hover:text-blue-500 transition-colors">
+                                查看详情与效益分析
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            });
+
+            container.innerHTML = html;
+            // 重新渲染图标
+            lucide.createIcons();
+        }
+
+        function openModal(id) {
+            const card = cardData.find(c => c.id === id);
+            if (!card) return;
+
+            const modalOverlay = document.getElementById('modal-overlay');
+            const modalContent = document.getElementById('modal-content');
+            
+            // 构建内容
+            let contentHtml = '';
+            
+            // Header
+            contentHtml += `
+                <div class="${card.color} p-6 text-white sticky top-0 z-10">
+                    <button onclick="closeModal()" class="absolute top-4 right-4 p-2 bg-white/20 hover:bg-white/30 rounded-full transition-colors">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                    <div class="flex items-center gap-4 mb-2">
+                        <div class="p-2 bg-white/20 rounded-lg backdrop-blur-md">
+                            <i data-lucide="${card.icon}" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold">${card.title}</h2>
+                            <p class="text-white/90 text-sm font-medium">${card.subtitle}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 space-y-6">
+            `;
+
+            // Body
+            if (card.details.type === 'intro') {
+                contentHtml += `
+                    <div class="space-y-4">
+                        <p class="text-gray-700 leading-relaxed text-lg font-medium">${card.details.intro}</p>
+                    </div>
+                `;
+            } else if (card.details.type === 'complex') {
+                contentHtml += `<div class="space-y-8">`;
+                card.details.subSections.forEach(section => {
+                    contentHtml += `
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                            <h3 class="font-bold text-slate-800 text-lg mb-4 pb-2 border-b border-slate-200">${section.title}</h3>
+                            <div class="space-y-4">
+                                <div class="space-y-1">
+                                    <h4 class="flex items-center gap-2 font-bold text-sm text-gray-700">
+                                        <i data-lucide="check-circle-2" class="text-green-500 w-4 h-4"></i> 产品优势
+                                    </h4>
+                                    <p class="text-gray-600 text-sm leading-relaxed pl-6">${section.advantages}</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="flex items-center gap-2 font-bold text-sm text-gray-700">
+                                        <i data-lucide="alert-triangle" class="text-orange-500 w-4 h-4"></i> 痛点难点
+                                    </h4>
+                                    <p class="text-gray-600 text-sm leading-relaxed pl-6">${section.painPoints}</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="flex items-center gap-2 font-bold text-sm text-gray-700">
+                                        <i data-lucide="trending-up" class="text-blue-500 w-4 h-4"></i> 经济效益
+                                    </h4>
+                                    <p class="text-gray-600 text-sm leading-relaxed pl-6">${section.benefits}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                contentHtml += `</div>`;
+            } else {
+                contentHtml += `
+                    <div class="space-y-2">
+                        <h3 class="flex items-center gap-2 font-bold text-gray-800 text-lg">
+                            <i data-lucide="check-circle-2" class="text-green-500 w-5 h-5"></i> 产品优势
+                        </h3>
+                        <p class="text-gray-600 leading-relaxed pl-7 bg-green-50/50 p-3 rounded-lg border border-green-100">${card.details.advantages}</p>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="flex items-center gap-2 font-bold text-gray-800 text-lg">
+                            <i data-lucide="alert-triangle" class="text-orange-500 w-5 h-5"></i> 痛点难点
+                        </h3>
+                        <p class="text-gray-600 leading-relaxed pl-7 bg-orange-50/50 p-3 rounded-lg border border-orange-100">${card.details.painPoints}</p>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="flex items-center gap-2 font-bold text-gray-800 text-lg">
+                            <i data-lucide="trending-up" class="text-blue-500 w-5 h-5"></i> 经济效益
+                        </h3>
+                        <p class="text-gray-600 leading-relaxed pl-7 bg-blue-50/50 p-3 rounded-lg border border-blue-100">${card.details.benefits}</p>
+                    </div>
+                `;
+            }
+
+            // Footer Button
+            contentHtml += `
+                <div class="pt-4 mt-4 border-t border-gray-100 text-center">
+                    <button onclick="alert('请点击右上角菜单进行分享')" class="w-full py-3 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-colors flex items-center justify-center gap-2 active:bg-gray-700">
+                        <i data-lucide="share-2" class="w-4 h-4"></i> 分享此名片
+                    </button>
+                </div>
+                </div> 
+            `;
+
+            modalContent.innerHTML = contentHtml;
+            
+            // 显示并添加动画
+            modalOverlay.classList.remove('hidden');
+            modalOverlay.classList.add('modal-enter');
+            modalContent.classList.add('modal-content-enter');
+            
+            // 禁止背景滚动
+            document.body.style.overflow = 'hidden';
+            
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            const modalOverlay = document.getElementById('modal-overlay');
+            const modalContent = document.getElementById('modal-content');
+            
+            modalOverlay.classList.add('hidden');
+            modalOverlay.classList.remove('modal-enter');
+            modalContent.classList.remove('modal-content-enter');
+            document.body.style.overflow = 'auto';
+        }
+
+        // 点击背景关闭
+        document.getElementById('modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // 初始化
+        renderCards();
+
+    </script>
+</body>
+</html>
