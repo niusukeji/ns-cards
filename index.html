@@ -57,7 +57,8 @@
                     <p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider">智慧监测系列产品</p>
                 </div>
             </div>
-            <a href="tel:13915561401" class="flex items-center gap-1 text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full hover:bg-blue-100 transition-colors no-underline">
+            <!-- 号码可根据实际情况修改，此处保留原样式结构 -->
+            <a href="#" class="flex items-center gap-1 text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full hover:bg-blue-100 transition-colors no-underline">
                 <i data-lucide="phone" class="w-3 h-3"></i> 联系
             </a>
         </div>
@@ -77,12 +78,11 @@
 
     <footer class="mt-12 text-center text-slate-400 text-xs pb-10">
         <p class="mb-1">© 2026 上海牛苏科技有限公司</p>
-        <p class="scale-90 opacity-70">SMART IOT SOLUTION</p>
+        <p class="scale-90 opacity-70">让工业更安全 · 设备更可靠</p>
     </footer>
 
     <!-- 全屏弹窗容器 -->
     <div id="modal-overlay" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onclick="closeModal(event)">
-        <!-- 这里的 max-w-lg 让弹窗稍微宽一点，更像图中的卡片 -->
         <div id="modal-content" class="bg-white rounded-2xl w-full max-w-[500px] max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl flex flex-col relative" onclick="event.stopPropagation()">
             <!-- 内容由JS填充 -->
         </div>
@@ -90,96 +90,99 @@
 
     <script>
         // --- 核心数据 ---
-        // 注意：为了还原列表效果，我保留了原始文本，稍后会用JS自动按标点分割
+        // 数据完全来源于《上海牛苏科技有限公司智慧监测系列产品介绍（20260204新）.docx》
         const cardData = [
             {
                 id: 1,
-                title: "上海牛苏科技有限公司", // 图片1标题
+                title: "上海牛苏科技有限公司", 
                 subtitle: "中国智慧监测领跑者",
-                tags: ["咨询-研发-制造-运营", "全产业链一站式", "多行业落地"], // 图片1底部标签
+                tags: ["咨询-研发-制造-运营", "全产业链一站式", "工业物联网"],
                 icon: "building-2",
-                color: "bg-[#1e293b]", // 图片1的深色背景
+                color: "bg-[#1e293b]",
                 lightColor: "bg-slate-800",
                 textColor: "text-white",
-                isProfile: true, // 标记为公司简介卡片
-                summary: "专注于工业物联网与智慧运维，构建全产业链一站式服务。",
+                isProfile: true,
+                summary: "专注于工业物联网与智慧运维，构建“咨询—研发—制造—运营”全产业链一站式服务体系。",
                 details: {
-                    intro: "上海牛苏科技有限公司成立于2015年6月，由国内资深行业专家联合创立，是国内唯一深耕工业物联网与智慧运维领域、致力于成为中国智慧监测领跑者的创新型科技企业。",
-                    desc2: "公司聚焦七大核心业务板块，构建“咨询-研发-制造-运营”全产业链一站式服务体系，提供从现场感知、边缘计算到云平台分析的一体化解决方案。",
-                    desc3: "核心产品已落地能源、化工等多行业，覆盖国内外多区域，以精准感知、智能管控优势破解行业瓶颈，筑牢多场景智能化安全监测体系。"
+                    intro: "上海牛苏科技有限公司成立于2015年6月，由多名国内资深行业专家联合创立，是国内深耕工业物联网与智慧运维领域，专注打造智慧监测系列平台，致力于成为中国智慧监测领跑者的创新型科技企业。",
+                    desc2: "公司聚焦七大核心业务板块，构建“咨询—研发—制造—运营”全产业链一站式服务体系。公司以让“工业更安全、设备更可靠、管理更简单”为愿景，提供从现场感知、边缘计算到云平台分析的一体化解决方案。",
+                    desc3: "核心产品广泛应用于矿山、有色、钢铁、石油、化工、电力、学校、医院、居民小区、智能制造及市政、城市生命线等多领域，覆盖国内外多个区域，凭借精准感知、智能管控的核心优势破解行业瓶颈，为企业降本增效，降低安全隐患，筑牢多场景智能化安全监测防线。"
                 }
             },
             {
                 id: 2,
                 title: "动设备智慧监测系统",
-                subtitle: "系列产品之一",
+                subtitle: "智慧监测系列平台",
                 icon: "activity",
                 color: "bg-blue-600",
                 lightColor: "bg-blue-50",
                 textColor: "text-blue-600",
-                summary: "AI 2分钟生成诊断报告，预警准确率超90%。",
+                summary: "融合AI智能诊断与远程专家支持，构建动设备全生命周期运维体系。",
                 details: {
                     type: "product",
-                    advantages: "非破坏性安装无需停机，传感器适配-40℃至120℃恶劣工况；24小时不间断监测，提前48小时预警隐患（准确率超90%）；AI 2分钟生成诊断报告，配套远程专家会诊",
-                    painPoints: "解决人工巡检难辨早期隐性隐患；恶劣工况监测盲区；故障诊断低效致非计划停机；定期检修成本高；数据碎片化无法支撑运维优化",
-                    benefits: "提升设备运行时间10%-20%；减少非计划停机损失30%以上；总维护成本降低5%-10%，减少备件损耗；适配多行业场景提升核心竞争力"
+                    // 对应word中的“核心功能”
+                    advantages: "专为泵、风机、电机、冷冻机组、压缩机、减速机等工业旋转类、传动类动设备研发，融合AI智能诊断与远程专家支持，构建动设备全生命周期运维体系，推动企业从被动抢修向主动预防性运维转型，适配多行业动设备管控需求，实现设备运行状态全时段监测与智能管控。",
+                    // 对应word中的“给企业解决的痛点难点问题”
+                    painPoints: "人工巡检依赖经验，早期隐患难识别，故障发现滞后，易扩大损失；高温、高噪工况下巡检受限，存在明显监测盲区，风险防控不全面；故障诊断流程繁琐低效，易引发非计划停机，造成重大生产与经济损失；传统定期检修模式冗余，无端推高设备维护成本，资源浪费严重；设备运行数据碎片化，无法形成有效支撑，阻碍运维策略优化升级",
+                    // 对应word中的“产品亮点”
+                    benefits: "降本增效显著：以精细化、数据化、智能化管理为支撑，全方位降低企业经营成本，提升设备满负荷运行能力；校企协同研发：与山东科技大学、苏州德姆斯深度合作，依托高校科研实力与企业技术转化能力，筑牢产品研发根基；无损安装运维：采用非破坏性安装方式，全程无需停机，不干扰企业正常生产秩序；恶劣工况适配：传感器可耐受-40℃至120℃环境，24小时不间断监测，提前48小时精准预警隐患，预警准确率超90%；智能高效诊断：搭载AI智能算法，2分钟内自动生成专业诊断报告，配套远程专家支持，大幅提升维修效率与设备开机率，降低非计划停机率"
                 }
             },
             {
                 id: 3,
                 title: "静设备智慧监测系统",
-                subtitle: "系列产品之二",
+                subtitle: "特种设备监测",
                 icon: "box",
-                color: "bg-emerald-600", // 对应图中的绿色
+                color: "bg-emerald-600", 
                 lightColor: "bg-emerald-50",
                 textColor: "text-emerald-600",
-                summary: "提前72小时预警泄漏与腐蚀，适配强腐蚀工况。",
+                summary: "针对压力管道、锅炉、球罐等，构建“预警—报警—处置”全流程监测体系。",
                 details: {
                     type: "product",
-                    advantages: "非破坏性安装适配各类静设备，传感器耐受-50℃至150℃及强腐蚀、防爆工况；提前72小时预警隐患（泄漏、腐蚀预警准确率超92%）；AI生成报告实现数据留痕追溯",
-                    painPoints: "破解静设备隐性隐患难识别；人工巡检覆盖不全；定期检修影响生产；数据无法追溯、合规达标难",
-                    benefits: "减少非计划停机30%以上；降低检修成本15%-25%，延长设备寿命5%-10%；规避环保处罚成本；优化资源配置提升市场认可度"
+                    advantages: "针对压力管道、锅炉、球罐、反应釜、储罐等工业静设备，聚焦腐蚀、泄漏、应力变化、结构异常等核心隐患，采用多技术协同架构构建“预警—报警—处置”全流程监测体系，提供高可靠、长周期专属智慧监测方案，兼顾新建设备与存量设备需求，通过实时数据上传实现智慧管控，平衡生产连续性与运维安全性。",
+                    painPoints: "静设备内部及隐蔽部位隐性隐患难识别、难定位，易形成长期安全风险；人工巡检覆盖范围有限，漏检、错检问题突出，无法实现全维度管控；定期停机检修干扰生产连续性，影响产能释放，增加生产调度难度；设备运行数据缺乏统一归档，故障后溯源、复盘难度大，难以总结优化；环保安全合规标准日趋严苛，传统运维模式达标难度高，企业易面临处罚风险",
+                    benefits: "多技术协同架构：构建“分布式光纤传感器+红外传感器+激光遥测仪+倾角/振动/压力/测厚传感器”立体化监测体系，实现“内部温度场—外部热图像—泄漏气体—结构状态”全维度覆盖；重点部位强化监测：针对法兰、焊接接头、保温结构、电气连接点等关键部位，实施针对性双重监测或强化管控，精准防控薄弱环节风险；智能化平台赋能：统一接入传感器数据，实现数据融合分析、故障智能诊断、趋势预测及可视化展示，支持报警分级推送与应急联动指令下发；技术协同互补：与南京工程学院、百世通（浙江）安全科技深度合作，实现技术优势互补，提升核心竞争力；适配性与耐受性优：非破坏性安装设计，兼容各类材质、形态静设备，传感器可耐受-50℃至300℃温度区间，适配强腐蚀、防爆等高危工况；精准预警与合规支撑：提前48小时预警核心风险，泄漏、腐蚀预警准确率超90%，AI自动生成监测报告，全周期数据留痕可追溯，助力合规管控"
                 }
             },
             {
                 id: 4,
-                title: "城市生命线监测",
-                subtitle: "系列产品之三 (含四板块)",
-                icon: "droplets",
-                color: "bg-cyan-600", // 对应图中的青色
+                title: "城市生命线监测一体化",
+                subtitle: "含四大核心板块",
+                icon: "network",
+                color: "bg-cyan-600",
                 lightColor: "bg-cyan-50",
                 textColor: "text-cyan-600",
-                summary: "涵盖供水桥隧、燃气、管廊及化工交通四大板块。",
+                summary: "覆盖管网设施、交通基建、特殊场所及地下空间，构建“监测—预警—处置—追溯”全闭环。",
                 details: {
                     type: "complex",
                     subSections: [
                         {
-                            title: "供水、排水、供热、桥隧安全监测",
-                            themeColor: "bg-[#0891b2]", // 每一块可以有不同颜色
-                            advantages: "基于分布式光纤传感技术，全域无盲监测（报警准确率≥95%）；非开挖安装适配存量改造，无源防爆抗干扰；纳入应急管理部“智慧应急”星火计划",
-                            painPoints: "解决管网桥隧隐蔽致巡检低效预警滞后；存量设施改造影响大；运维成本高；应急响应慢",
-                            benefits: "运维成本降低60%；减少供排热及交通中断损失；契合智慧城市建设需求，降低改造施工成本"
+                            title: "管网设施类风险监测预警",
+                            themeColor: "bg-[#0891b2]", 
+                            advantages: "针对城市综合管网、PCCP管道、燃气管道及附属设施，采用分布式光纤传感、声波监测、压力传感等融合技术，构建一体化安全监测平台。通过专利非开挖技术植入传感器，实现泄漏、破损、断丝、压力异常等风险24小时不间断监测，借助GIS地图可视化呈现状态，结合大数据算法预判趋势，联动应急关阀与抢修队伍，形成全流程闭环管控，适配存量改造与新建运维场景。",
+                            painPoints: "管网布局复杂、存量管道老化严重，PCCP管道断丝、燃气管网微小泄漏等隐患隐蔽性强，传统检测难以精准识别，易引发爆管、路面塌陷事故；人工巡检效率低、成本高，无法有效防控第三方施工开挖破坏，且难以覆盖长距离、野外埋地管线；存量管网改造扰动大、成本高，新建与存量管线协同运维难度大，缺乏全生命周期监测手段；多部门数据割裂，无法联动地质沉降、偷排废料等关联风险研判，隐患定位模糊易延误处置；野外复杂环境下设备稳定性差，PCCP管道爆管后抢修周期长，损失易扩大",
+                            benefits: "全场景适配性强：兼容多介质管网及专项管道，兼顾存量改造与新建部署，覆盖阀门、井盖等附属设施；监测精准度高：隐患定位精度达米级，可捕捉单根断丝信号与≥95%的微小泄漏，支持地面敲击示踪定位，实现时空无盲区监测；低扰动低成本：非开挖安装不影响交通与居民生活，单根光纤长距离覆盖，借助富余光缆组网降低成本；快速应急响应：联动应急关阀装置与抢修队伍，缩短处置时间，减少介质损失与隐性影响；抗干扰能力突出：适配野外、埋地、潮湿环境，监测数据稳定可靠，不受电磁干扰"
                         },
                         {
-                            title: "燃气行业新技术检测系统",
-                            themeColor: "bg-[#ea580c]", // 橙色
-                            advantages: "精准识别微小泄漏与腐蚀（准确率≥95%）；单根光纤实现数公里管网24小时监测；无源防爆非开挖安装，构建智能闭环管理",
-                            painPoints: "破解泄漏检测精度低；第三方施工破坏防控难；存量管网改造难；运维风险高及数据处理弱",
-                            benefits: "降低60%以上人工成本；减少燃气漏损及事故赔偿损失；延长管网使用寿命，规避停气隐性损失"
+                            title: "交通基建类风险监测预警",
+                            themeColor: "bg-[#ea580c]",
+                            advantages: "以分布式光纤传感技术为核心，整合结构应力传感、气象监测、AI视频抓拍等设备，构建全维度安全监测体系。针对桥梁、隧道、高速公路、铁路接触线、高铁无砟道轨等设施，精准监测结构形变、渗漏水、覆冰、边坡稳定等风险，搭配AI视频分析自动识别交通异常，联动交通管控平台实现分级预警、快速疏导与处置。",
+                            painPoints: "桥梁、道轨等结构隐患隐蔽且渐进，边坡滑坡、路基变形等风险难实时捕捉，传统定期检测易遗漏动态风险，易引发重大安全事故；极端天气加剧设施破损，接触线覆冰、路面结冰等隐患影响行车安全，交通异常事件发现不及时易引发二次事故；跨区域、跨部门协同管控不足，风险研判缺乏数据支撑，联动效率低；人工巡检受环境、时间限制，难以覆盖长距离线路及偏远风险点，运维效率低、难度大；对船只撞桩、水浪冲蚀桥梁等特殊风险管控薄弱，防控存在漏洞",
+                            benefits: "全维度风险覆盖：兼顾结构安全、运行环境与特殊风险，实现交通基建无死角管控；动态实时预警：精准捕捉隐患变化趋势，提前预警结构坍塌、接触线覆冰等风险，规避重大事故；智能高效联动：AI自动识别交通异常，联动多部门实现数据共享与快速疏导，减少人工干预；复杂场景适配：抗高温、高湿、强振动及恶劣气象，可稳定运行于边坡、偏远路基等特殊点位；运维成本可控：集中化平台实现远程监测，减少现场巡检频次，提升运维效率"
                         },
                         {
-                            title: "地下建筑结构、化工园区管廊监测",
-                            themeColor: "bg-[#4f46e5]", // 靛蓝
-                            advantages: "全维度监测多参数（准确率≥95%）；无源光纤适配恶劣环境（寿命25年）；微创安装不影响运营，纳入“智慧应急”星火计划",
-                            painPoints: "解决结构监测覆盖不足；设备环境适应性差；改造施工影响运营；数据碎片化应急滞后",
-                            benefits: "建设成本为点式传感器方案的1/3至1/2；运维费近乎为零；避免化工停产、港口停运等高额损失"
+                            title: "特殊场所类风险监测预警",
+                            themeColor: "bg-[#4f46e5]", 
+                            advantages: "针对化工、新能源等特殊场景定制差异化监测方案，全面覆盖化工企业反应器、高压容器、塔器、蒸汽管道等核心设备及LNG储罐、储能电池、风电站、光（电复合）缆等设施。采用分布式光纤传感、无源防爆设计，精准监测温度、压力、泄漏、振动等参数，支持与化工DCS系统、新能源管控平台无缝对接，形成“监测—预警—处置—复盘”全闭环。",
+                            painPoints: "化工企业核心设备类型多、工况复杂，易出现温度压力异常、密封失效等隐患，传统监测存在时空盲区、针对性弱，易引发连锁事故；化工园区风险点密集，法兰、蒸汽管道等薄弱部位微泄漏难捕捉，设备协同隐患联动研判不足，存在信息孤岛；储能电池热失控风险高，传统点式测温覆盖不全，风电站设备及光（电复合）缆隐患难及时发现，运维难度大；高危环境下人工巡检安全风险高，设备故障应急联动不足，事故后追溯能力薄弱；新能源设备与化工设施适配标准差异大，缺乏统一化、智能化监测方案",
+                            benefits: "场景定制性极强：适配化工高危工况及新能源特殊需求，针对各类设备定制专属监测策略，覆盖全流程、全链条；多维协同监测：整合多类型传感数据，兼顾设备本体、接口密封、介质状态及结构安全，实现跨设备联动研判；高危适配可靠：无源防爆设计符合化工园区安全规范，可在爆炸危险区域稳定运行，精准预警微泄漏、热失控等隐患；数据融合高效：支持与现有系统无缝对接，打破数据壁垒，无需大规模改造，降低适配成本；全生命周期管控：记录设备运行及事故全环节数据，为运维优化、应急预案完善提供支撑，实现全周期安全保障"
                         },
                         {
-                            title: "化工、轨道交通、电力安全监测",
-                            themeColor: "bg-[#7c3aed]", // 紫色
-                            advantages: "全工况全域监测（准确率≥95%）；无源防爆抗干扰；微创不停机安装，构建行业专属一体化平台",
-                            painPoints: "破解复杂场景监测盲区、停机损失惨重；运维风险高成本高；数据处理及应急响应弱",
-                            benefits: "降低60%以上人工成本；规避行业全线停机隐性损失；延长设备设施使用寿命，提升生产连续性"
+                            title: "地下空间类风险监测预警",
+                            themeColor: "bg-[#7c3aed]",
+                            advantages: "构建“结构+管线”一体化监测体系，以分布式光纤传感技术为核心，搭配多类传感器，监测隧道、管廊本体结构状态及内部燃气、电力、供水等管线风险，支持密闭空间无源防爆、抗潮湿设计，通过可视化平台实现风险分级预警、应急联动处置与全流程追溯，同步预警火灾、积水等隐患。",
+                            painPoints: "地下空间密闭狭窄，本体结构与内部管线相互影响，单一监测易导致隐患叠加引发事故；隐患发现、排查难度大，隧道衬砌变形、砌块掉落等风险难实时管控，火灾、积水等突发情况预警不及时；地铁隧道受列车振动、地质条件影响，结构隐患加速发展，传统监测难以跟踪；内部管线密集，泄漏易引发火灾、爆炸等连锁风险，应急救援环境复杂、难度高；运维人员进入密闭空间作业安全风险高，运维效率低下",
+                            benefits: "双重安全覆盖：同步监测结构与管线风险，兼顾环境隐患，实现全面管控；密闭环境适配：无源防爆、抗潮湿设计，保障设备与人员安全，适配长期连续运行；隐患精准溯源：结合空间定位与光缆点位，快速锁定隐患位置与类型，为抢修提供指引；应急可视化指挥：通过平台实时呈现现场状态，支撑远程制定救援方案，提升处置效率；低功耗易运维：设备稳定性强、功耗低，减少后期维护频次与成本，适配地下复杂场景"
                         }
                     ]
                 }
@@ -187,81 +190,84 @@
             {
                 id: 5,
                 title: "用电安全智慧监测系统",
-                subtitle: "系列产品之四",
+                subtitle: "全域用电管控",
                 icon: "zap",
                 color: "bg-blue-500", 
                 lightColor: "bg-blue-50",
                 textColor: "text-blue-600",
-                summary: "AI故障预测准确率超95%，故障处置缩至30分钟内。",
+                summary: "采用模块化设计打造全域用电管控方案，实现AI智能预测与远程无人值守。",
                 details: {
                     type: "product",
-                    advantages: "模块化安装适配新旧配电房，全域多维度监测，支持远程无人值守；AI故障预测（准确率超95%）；减少80%巡检频次，故障处置缩至30分钟内",
-                    painPoints: "解决人工巡检低效不均；风险预警滞后；数据孤岛；运维成本高、应急处置薄弱",
-                    benefits: "运维人力成本降低60%；减少非计划停电及能耗损失；延长设备寿命30%以上，推动运维向主动预防转型"
+                    advantages: "面向各类建筑、厂区配电房，采用模块化设计打造全域用电管控方案，实现多维度监测、AI智能预测、远程无人值守与快速故障处置，适配新建及老旧配电房改造需求，推动用电运维从被动应对向主动预防转型，保障配电系统安全稳定运行。",
+                    painPoints: "人工巡检效率低、标准不一，漏检风险高，无法全面防控用电隐患；用电隐患预警滞后，易引发电气安全事故，造成人员与财产损失；配电数据孤立形成数据孤岛，难以集中管控与统筹分析；运维成本冗余，应急处置流程不完善，故障响应与修复效率低",
+                    benefits: "合作资源雄厚：与上市公司上海良信电器深度合作，兼具技术优势与经济实力；适配性与经济性佳：模块化设计适配各类场景，改造部署成本低，性价比突出；运维高效便捷：全域多维度采集数据，支持远程无人值守，大幅减少人工投入；预警精准：AI故障预测准确率超95%，可减少80%巡检频次，降低运维负荷；处置快速：故障处置时间压缩至30分钟内，大幅降低停电损失，保障生产连续性"
                 }
             },
             {
                 id: 6,
                 title: "消防泵房智慧监测系统",
-                subtitle: "系列产品之五",
+                subtitle: "设施完整性管控",
                 icon: "flame",
                 color: "bg-red-600",
                 lightColor: "bg-red-50",
                 textColor: "text-red-600",
-                summary: "“手机APP+泵房监测”一体化管控，人力成本降低80%。",
+                summary: "打造“移动端+现场”一体化管控方案，实现全天候智能监测与多级预警。",
                 details: {
                     type: "product",
-                    advantages: "“手机APP+泵房监测”一体化管控；三级智能报警多渠道推送；非破坏性安装适配老旧泵房，毫秒级预警且人力成本降80%",
-                    painPoints: "破解设备缺乏集中监测；报警滞后误报高；应急联动不足；维保流程不标准",
-                    benefits: "降低运维维保成本；规避消防处罚与火灾扩大损失；提升园区招商吸引力及企业竞争力"
+                    advantages: "聚焦消防泵房核心设施运行状态与完整性管控，打造“移动端+现场”一体化管控方案，实现全天候智能监测、多级预警与远程管控，适配新建及老旧泵房改造需求，筑牢消防应急防线，提升企业消防合规管理水平。",
+                    painPoints: "消防设备缺乏集中监测，运行状态不透明，无法实时掌握设施完好性；传统报警方式滞后、误漏报率高，错失最佳故障处置时机；预警与应急联动缺失，故障响应效率低，影响消防处置效果；维保流程不规范，消防合规风险高，易面临检查处罚",
+                    benefits: "产品性能优越：与上海添眼深度合作，优化核心性能，保障监测可靠性；管控可视化：“手机APP+现场监测”联动，实现消防设施运行全流程可视化管控；预警高效精准：三级智能报警机制，多渠道推送预警信息，毫秒级响应；适配改造场景：非破坏性安装，可满足老旧泵房改造需求，无需大规模施工；降本增效显著：降低80%人力运维成本，保障消防设施持续完好可用，助力合规达标"
                 }
             },
             {
                 id: 7,
                 title: "气体智慧监测系统",
-                subtitle: "系列产品之六",
+                subtitle: "无线监测方案",
                 icon: "wind",
                 color: "bg-teal-700",
                 lightColor: "bg-teal-50",
                 textColor: "text-teal-700",
-                summary: "Exd II CT6防爆，IP67防水防尘，误报率低于1%。",
+                summary: "面向工业有毒、可燃、腐蚀性气体管控，提供高可靠、易部署、长续航无线监测。",
                 details: {
                     type: "product",
-                    advantages: "多方式无布线安装；Exd II CT6防爆、IP67防水防尘，低功耗电池续航超5年；误报率低于1%，Adhoc无线传输稳定",
-                    painPoints: "解决传统设备精度低误报高；部署传输难、适配性差功耗高；安装影响生产、数据割裂管控低效",
-                    benefits: "大幅降低运维及电池更换成本；避免气体隐患致生产停机、事故罚款；提升生产稳定性"
+                    advantages: "面向工业有毒、可燃、腐蚀性气体管控场景，提供高可靠、易部署、长续航无线监测方案，适配高危化工、车间、仓储等场景，实时管控气体浓度变化，精准预警风险，规避安全事故与生产中断风险。",
+                    painPoints: "传统设备精度低，误漏报现象频繁，干扰正常生产与风险判断；布线部署难度大、信号不稳定，后期维护成本高；设备功耗高，运维流程繁琐，需频繁更换耗材；安装需停机作业，数据分散难以实现全局防控，影响生产连续性",
+                    benefits: "强强联合研发：与苏州枫荷深度合作，提升产品核心竞争力与技术成熟度；部署便捷：无布线安装设计，施工快速且不影响生产，适配各类场地；适配高危场景：具备Exd II CT6防爆认证与IP67防护等级，可适应恶劣工况；续航能力突出：超低功耗设计，电池续航超5年，实现长期免维护；数据可靠稳定：误报率低于1%，Adhoc无线传输技术保障数据精准、稳定传输"
                 }
             },
             {
                 id: 8,
                 title: "软起动式异步电机监测",
-                subtitle: "系列产品之七",
+                subtitle: "智慧监测与预警",
                 icon: "cpu",
                 color: "bg-indigo-600",
                 lightColor: "bg-indigo-50",
                 textColor: "text-indigo-600",
-                summary: "负载自学习优化参数，降低20%-25%电力消耗。",
+                summary: "融合全维监测、智能优化及软启动技术，构建“启动—运行—运维”闭环。",
                 details: {
                     type: "product",
-                    advantages: "全维度监测提前预判故障；负载自学习优化参数；4G/5G远程管理，抗电磁干扰适配性强",
-                    painPoints: "破解故障预警滞后；运维模式粗放成本高；参数固定能耗高；数据碎片化",
-                    benefits: "降低30%以上运维人工成本；减少停机损失；降低20%-25%电力消耗；延长电机及核心部件寿命"
+                    advantages: "专为工业软起动式异步电机研发，融合全维监测、智能优化、远程管控及软启动核心技术，构建“启动—运行—运维”闭环管理体系，具备强抗干扰能力，适配冶金、化工等重载场景，保障电机平稳运行、优化能耗。",
+                    painPoints: "电机早期故障及启动异常隐蔽性强，预警滞后易造成生产中断与设备损坏；运维模式粗放，人工成本高、漏错检频发，设备可靠性难以保障；启动与能耗矛盾突出，重载场景易出现“小马拉大车”瓶颈，影响生产效率；监测数据零散，难以兼顾重载场景下电机性能与节能需求，运维策略优化难",
+                    benefits: "技术性能可靠：与具备军工背景的企业合作，产品技术领先、性能稳定，适配重载工况；风险前置防控：全维监测协同软启动技术，精准捕捉早期故障与启动异常，实现风险前置；节能效果显著：启动功率优化设计，可降低重载电机额定功率需求30%—60%，搭配负载自学习算法，兼顾运行性能与能耗控制；集成性强：支持4G/5G远程管控，可与多系统深度集成，适配大功率电机全工况需求；环境适应性优：专用抗电磁干扰设计，可在高温、高噪、重载环境下稳定运行"
                 }
             }
         ];
 
         // --- 辅助函数：将字符串分割成列表HTML ---
-        // 模拟图片中的 Bullet Points 效果
         function textToList(text) {
             if (!text) return '';
-            // 按分号或中文逗号分割，如果句子太短就不分割
+            // 兼容中文分号和英文分号分割，兼容数字编号开头（如1. 2.）
+            // 先清理数字编号（如 "1. "），然后分割
             const items = text.split(/[；;]/).filter(item => item.trim().length > 0);
-            return items.map(item => 
-                `<li class="flex items-start gap-2 mb-1.5 text-sm text-slate-600 leading-snug">
+            
+            return items.map(item => {
+                // 去除可能的 "1. ", "(1) " 等开头
+                let cleanItem = item.trim().replace(/^[\d(（]+\s*[\d)）]*[、\.]?\s*/, '');
+                return `<li class="flex items-start gap-2 mb-1.5 text-sm text-slate-600 leading-snug">
                     <span class="mt-1.5 w-1 h-1 rounded-full bg-slate-400 shrink-0"></span>
-                    <span>${item}</span>
+                    <span>${cleanItem}</span>
                  </li>`
-            ).join('');
+            }).join('');
         }
 
         // --- 渲染列表 ---
@@ -270,7 +276,7 @@
             let html = '';
 
             cardData.forEach(card => {
-                // 判断是否是公司简介，如果是，用不同的列表卡片样式
+                // 判断是否是公司简介
                 const isProfile = card.isProfile;
                 const iconColor = isProfile ? "text-blue-600" : card.textColor;
                 const bgClass = isProfile ? "bg-slate-900" : "bg-white";
@@ -327,7 +333,7 @@
             
             let contentHtml = '';
 
-            // 1. 公司简介布局 (对应图片1)
+            // 1. 公司简介布局
             if (card.isProfile) {
                 const tagsHtml = card.tags.map(tag => 
                     `<span class="px-3 py-1 bg-white/10 rounded-full text-xs text-blue-100 border border-white/10">${tag}</span>`
@@ -364,27 +370,25 @@
                     </div>
                 `;
             } 
-            // 2. 复杂产品布局 (城市生命线 - 对应包含多个色块的布局)
+            // 2. 复杂产品布局 (城市生命线)
             else if (card.details.type === 'complex') {
-                // Header (共用)
                 contentHtml += renderProductHeader(card);
                 
-                // Body (循环生成多个卡片)
                 contentHtml += `<div class="bg-slate-50 p-4 space-y-6">`;
                 
                 card.details.subSections.forEach((section, idx) => {
                     contentHtml += `
                         <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-slate-200">
-                             <!-- 子标题条: 模仿图片中的彩色条 -->
+                             <!-- 子标题条 -->
                              <div class="${section.themeColor || card.color} px-4 py-2 flex items-center justify-between">
                                 <span class="text-white font-bold text-sm truncate pr-2">${section.title}</span>
                                 <i data-lucide="layers" class="text-white/50 w-4 h-4"></i>
                              </div>
                              
                              <div class="p-5 space-y-5">
-                                ${renderSectionBlock('产品优势', 'check-circle-2', 'text-blue-500', 'bg-blue-50', section.advantages)}
+                                ${renderSectionBlock('核心功能', 'check-circle-2', 'text-blue-500', 'bg-blue-50', section.advantages)}
                                 ${renderSectionBlock('痛点难点', 'alert-circle', 'text-amber-500', 'bg-amber-50', section.painPoints)}
-                                ${renderSectionBlock('经济效益', 'trending-up', 'text-emerald-500', 'bg-emerald-50', section.benefits)}
+                                ${renderSectionBlock('产品亮点', 'sparkles', 'text-emerald-500', 'bg-emerald-50', section.benefits)}
                              </div>
                         </div>
                     `;
@@ -393,7 +397,7 @@
                 contentHtml += `</div>`;
                 contentHtml += renderProductFooter();
             }
-            // 3. 标准产品布局 (对应图片2、3)
+            // 3. 标准产品布局
             else {
                 // Header
                 contentHtml += renderProductHeader(card);
@@ -401,9 +405,9 @@
                 // Body
                 contentHtml += `
                     <div class="bg-white p-6 space-y-6 min-h-[400px]">
-                        ${renderSectionBlock('产品优势', 'check-circle-2', 'text-blue-600', 'bg-blue-50', card.details.advantages)}
+                        ${renderSectionBlock('核心功能', 'check-circle-2', 'text-blue-600', 'bg-blue-50', card.details.advantages)}
                         ${renderSectionBlock('痛点难点', 'alert-circle', 'text-amber-500', 'bg-amber-50', card.details.painPoints)}
-                        ${renderSectionBlock('经济效益', 'trending-up', 'text-emerald-600', 'bg-emerald-50', card.details.benefits)}
+                        ${renderSectionBlock('产品亮点', 'sparkles', 'text-emerald-600', 'bg-emerald-50', card.details.benefits)}
                     </div>
                 `;
 
@@ -423,7 +427,7 @@
 
         // --- 辅助渲染函数 ---
 
-        // 渲染产品详情页头部 (模仿图片2顶部)
+        // 渲染产品详情页头部
         function renderProductHeader(card) {
             return `
                 <div class="${card.color} p-6 pb-8 text-white relative overflow-hidden shrink-0">
@@ -440,7 +444,7 @@
                         <h2 class="text-2xl font-bold leading-tight pr-8">${card.title}</h2>
                     </div>
                 </div>
-                <!-- 弧形连接处(可选装饰) -->
+                <!-- 弧形连接处 -->
                 <div class="h-4 bg-white -mt-4 rounded-t-2xl relative z-10 mx-2"></div>
             `;
         }
@@ -457,6 +461,14 @@
 
         // 渲染内容块 (图标+标题+列表)
         function renderSectionBlock(title, iconName, iconColor, iconBg, textContent) {
+            // 如果是“核心功能”，且没有明显的分号分隔，则作为段落显示，否则作为列表
+            let contentHtml = '';
+            if (title === '核心功能' && !textContent.includes('；') && !textContent.includes(';')) {
+                contentHtml = `<p class="text-sm text-slate-600 leading-relaxed">${textContent}</p>`;
+            } else {
+                contentHtml = `<ul class="space-y-1">${textToList(textContent)}</ul>`;
+            }
+
             return `
                 <div class="flex gap-4">
                     <!-- 左侧图标圆圈 -->
@@ -468,9 +480,7 @@
                     <!-- 右侧内容 -->
                     <div class="flex-1">
                         <h4 class="font-bold text-slate-800 text-sm mb-2">${title}</h4>
-                        <ul class="space-y-1">
-                            ${textToList(textContent)}
-                        </ul>
+                        ${contentHtml}
                     </div>
                 </div>
             `;
@@ -499,5 +509,4 @@
 
     </script>
 </body>
-
 </html>
