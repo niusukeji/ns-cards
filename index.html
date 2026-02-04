@@ -57,10 +57,10 @@
                     <p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider">智慧监测系列产品</p>
                 </div>
             </div>
-            <!-- 号码可根据实际情况修改，此处保留原样式结构 -->
-            <a href="#" class="flex items-center gap-1 text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full hover:bg-blue-100 transition-colors no-underline">
+            <!-- 修改：点击触发确认弹窗，而不是直接拨号 -->
+            <button onclick="openCallModal()" class="flex items-center gap-1 text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full hover:bg-blue-100 transition-colors">
                 <i data-lucide="phone" class="w-3 h-3"></i> 联系
-            </a>
+            </button>
         </div>
     </header>
 
@@ -81,10 +81,33 @@
         <p class="scale-90 opacity-70">让工业更安全 · 设备更可靠</p>
     </footer>
 
-    <!-- 全屏弹窗容器 -->
+    <!-- 全屏弹窗容器 (产品详情) -->
     <div id="modal-overlay" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onclick="closeModal(event)">
-        <div id="modal-content" class="bg-white rounded-2xl w-full max-w-[500px] max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl flex flex-col relative" onclick="event.stopPropagation()">
-            <!-- 内容由JS填充 -->
+        <!-- 优化：max-h-[85vh] 并在内部增加 pb-10 防止底部内容被遮挡 -->
+        <div id="modal-content" class="bg-white rounded-2xl w-full max-w-[500px] max-h-[85vh] shadow-2xl flex flex-col relative overflow-hidden" onclick="event.stopPropagation()">
+            <!-- 内容容器：独立滚动，确保Header固定或随动取决于需求，这里让整体滚动 -->
+            <div id="modal-scroll-container" class="overflow-y-auto no-scrollbar h-full w-full bg-white">
+                <!-- 内容由JS填充 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 电话确认弹窗 (新增) -->
+    <div id="call-modal-overlay" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/40 backdrop-blur-[2px]" onclick="closeCallModal()">
+        <div class="bg-white rounded-xl w-[300px] shadow-xl overflow-hidden animate-[modalSlideUp_0.2s_ease-out]" onclick="event.stopPropagation()">
+            <div class="p-6 text-center">
+                <h3 class="text-lg font-bold text-slate-900 mb-2">提示</h3>
+                <p class="text-slate-600 text-sm">确定拨打电话: <br><span class="font-semibold text-slate-800 text-base mt-1 block">13915561401</span> 吗?</p>
+            </div>
+            <div class="flex border-t border-slate-100">
+                <button onclick="closeCallModal()" class="flex-1 py-3.5 text-slate-600 text-base font-medium active:bg-slate-50">
+                    取消
+                </button>
+                <div class="w-[1px] bg-slate-100"></div>
+                <button onclick="makeCall()" class="flex-1 py-3.5 text-blue-600 text-base font-bold active:bg-blue-50">
+                    确定
+                </button>
+            </div>
         </div>
     </div>
 
@@ -120,11 +143,8 @@
                 summary: "融合AI智能诊断与远程专家支持，构建动设备全生命周期运维体系。",
                 details: {
                     type: "product",
-                    // 对应word中的“核心功能”
                     advantages: "专为泵、风机、电机、冷冻机组、压缩机、减速机等工业旋转类、传动类动设备研发，融合AI智能诊断与远程专家支持，构建动设备全生命周期运维体系，推动企业从被动抢修向主动预防性运维转型，适配多行业动设备管控需求，实现设备运行状态全时段监测与智能管控。",
-                    // 对应word中的“给企业解决的痛点难点问题”
                     painPoints: "人工巡检依赖经验，早期隐患难识别，故障发现滞后，易扩大损失；高温、高噪工况下巡检受限，存在明显监测盲区，风险防控不全面；故障诊断流程繁琐低效，易引发非计划停机，造成重大生产与经济损失；传统定期检修模式冗余，无端推高设备维护成本，资源浪费严重；设备运行数据碎片化，无法形成有效支撑，阻碍运维策略优化升级",
-                    // 对应word中的“产品亮点”
                     benefits: "降本增效显著：以精细化、数据化、智能化管理为支撑，全方位降低企业经营成本，提升设备满负荷运行能力；校企协同研发：与山东科技大学、苏州德姆斯深度合作，依托高校科研实力与企业技术转化能力，筑牢产品研发根基；无损安装运维：采用非破坏性安装方式，全程无需停机，不干扰企业正常生产秩序；恶劣工况适配：传感器可耐受-40℃至120℃环境，24小时不间断监测，提前48小时精准预警隐患，预警准确率超90%；智能高效诊断：搭载AI智能算法，2分钟内自动生成专业诊断报告，配套远程专家支持，大幅提升维修效率与设备开机率，降低非计划停机率"
                 }
             },
@@ -257,13 +277,12 @@
         function textToList(text) {
             if (!text) return '';
             // 兼容中文分号和英文分号分割，兼容数字编号开头（如1. 2.）
-            // 先清理数字编号（如 "1. "），然后分割
             const items = text.split(/[；;]/).filter(item => item.trim().length > 0);
             
             return items.map(item => {
                 // 去除可能的 "1. ", "(1) " 等开头
                 let cleanItem = item.trim().replace(/^[\d(（]+\s*[\d)）]*[、\.]?\s*/, '');
-                return `<li class="flex items-start gap-2 mb-1.5 text-sm text-slate-600 leading-snug">
+                return `<li class="flex items-start gap-2 mb-2 text-sm text-slate-600 leading-relaxed">
                     <span class="mt-1.5 w-1 h-1 rounded-full bg-slate-400 shrink-0"></span>
                     <span>${cleanItem}</span>
                  </li>`
@@ -284,7 +303,7 @@
                 
                 html += `
                 <div onclick="openModal(${card.id})" 
-                     class="group relative ${bgClass} rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden active:scale-95">
+                     class="group relative ${bgClass} rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden active:scale-95 cursor-pointer">
                     
                     ${isProfile ? '' : `<div class="${card.color} h-1.5 w-full"></div>`}
                     
@@ -305,7 +324,7 @@
                             </div>
                         </div>
                         
-                        <p class="text-sm ${isProfile ? 'text-slate-300' : 'text-slate-500'} leading-relaxed mb-4">
+                        <p class="text-sm ${isProfile ? 'text-slate-300' : 'text-slate-500'} leading-relaxed mb-4 line-clamp-2">
                             ${card.summary}
                         </p>
 
@@ -329,7 +348,7 @@
             if (!card) return;
 
             const modalOverlay = document.getElementById('modal-overlay');
-            const modalContent = document.getElementById('modal-content');
+            const modalContent = document.getElementById('modal-scroll-container'); // Change: render into the scroll container
             
             let contentHtml = '';
 
@@ -340,7 +359,7 @@
                 ).join('');
 
                 contentHtml = `
-                    <div class="bg-[#1e293b] text-white p-6 min-h-[500px] flex flex-col relative overflow-hidden">
+                    <div class="bg-[#1e293b] text-white p-6 min-h-[500px] flex flex-col relative overflow-hidden pb-20">
                         <!-- 右上角关闭 -->
                         <button onclick="closeModal(event)" class="absolute top-4 right-4 p-2 bg-white/10 rounded-full hover:bg-white/20 z-20">
                             <i data-lucide="x" class="w-5 h-5 text-white"></i>
@@ -358,9 +377,9 @@
 
                         <!-- Body -->
                         <div class="bg-white/5 rounded-2xl p-6 border border-white/10 backdrop-blur-sm mb-6 flex-1">
-                            <p class="text-sm text-slate-300 leading-7 mb-4 indent-8">${card.details.intro}</p>
-                            <p class="text-sm text-slate-300 leading-7 mb-4 indent-8">${card.details.desc2}</p>
-                            <p class="text-sm text-slate-300 leading-7 indent-8">${card.details.desc3}</p>
+                            <p class="text-sm text-slate-300 leading-7 mb-4 indent-8 text-justify">${card.details.intro}</p>
+                            <p class="text-sm text-slate-300 leading-7 mb-4 indent-8 text-justify">${card.details.desc2}</p>
+                            <p class="text-sm text-slate-300 leading-7 indent-8 text-justify">${card.details.desc3}</p>
                         </div>
 
                         <!-- Tags Footer -->
@@ -374,7 +393,7 @@
             else if (card.details.type === 'complex') {
                 contentHtml += renderProductHeader(card);
                 
-                contentHtml += `<div class="bg-slate-50 p-4 space-y-6">`;
+                contentHtml += `<div class="bg-slate-50 p-4 space-y-6 pb-20">`; // Added bottom padding
                 
                 card.details.subSections.forEach((section, idx) => {
                     contentHtml += `
@@ -394,33 +413,34 @@
                     `;
                 });
                 
-                contentHtml += `</div>`;
                 contentHtml += renderProductFooter();
+                contentHtml += `</div>`;
             }
             // 3. 标准产品布局
             else {
                 // Header
                 contentHtml += renderProductHeader(card);
 
-                // Body
+                // Body - 增加 pb-20 底部内边距，确保滚动到底部不被切断
                 contentHtml += `
-                    <div class="bg-white p-6 space-y-6 min-h-[400px]">
+                    <div class="bg-white p-6 space-y-6 min-h-[400px] pb-20">
                         ${renderSectionBlock('核心功能', 'check-circle-2', 'text-blue-600', 'bg-blue-50', card.details.advantages)}
                         ${renderSectionBlock('痛点难点', 'alert-circle', 'text-amber-500', 'bg-amber-50', card.details.painPoints)}
                         ${renderSectionBlock('产品亮点', 'sparkles', 'text-emerald-600', 'bg-emerald-50', card.details.benefits)}
+                        
+                        ${renderProductFooter()}
                     </div>
                 `;
-
-                // Footer
-                contentHtml += renderProductFooter();
             }
 
             modalContent.innerHTML = contentHtml;
+            // 重置滚动位置
+            modalContent.scrollTop = 0;
             
             // 显示
             modalOverlay.classList.remove('hidden');
             modalOverlay.classList.add('modal-enter');
-            modalContent.classList.add('modal-content-enter');
+            // Animate parent container slightly differently if needed, or just keep it simple
             document.body.style.overflow = 'hidden';
             lucide.createIcons();
         }
@@ -445,14 +465,14 @@
                     </div>
                 </div>
                 <!-- 弧形连接处 -->
-                <div class="h-4 bg-white -mt-4 rounded-t-2xl relative z-10 mx-2"></div>
+                <div class="h-4 bg-white -mt-4 rounded-t-2xl relative z-10 mx-2 shadow-sm"></div>
             `;
         }
 
         // 渲染底部 footer
         function renderProductFooter() {
             return `
-                <div class="bg-white border-t border-slate-100 p-3 flex justify-between items-center text-[10px] text-slate-300 font-bold tracking-widest uppercase rounded-b-2xl">
+                <div class="mt-8 pt-6 border-t border-slate-100 flex justify-between items-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
                     <span>NIUSU TECH</span>
                     <span>SMART IOT SOLUTION</span>
                 </div>
@@ -464,7 +484,7 @@
             // 如果是“核心功能”，且没有明显的分号分隔，则作为段落显示，否则作为列表
             let contentHtml = '';
             if (title === '核心功能' && !textContent.includes('；') && !textContent.includes(';')) {
-                contentHtml = `<p class="text-sm text-slate-600 leading-relaxed">${textContent}</p>`;
+                contentHtml = `<p class="text-sm text-slate-600 leading-relaxed text-justify">${textContent}</p>`;
             } else {
                 contentHtml = `<ul class="space-y-1">${textToList(textContent)}</ul>`;
             }
@@ -473,7 +493,7 @@
                 <div class="flex gap-4">
                     <!-- 左侧图标圆圈 -->
                     <div class="shrink-0 mt-1">
-                        <div class="w-8 h-8 rounded-full ${iconBg} ${iconColor} flex items-center justify-center">
+                        <div class="w-8 h-8 rounded-full ${iconBg} ${iconColor} flex items-center justify-center shadow-sm">
                             <i data-lucide="${iconName}" class="w-4 h-4"></i>
                         </div>
                     </div>
@@ -486,21 +506,33 @@
             `;
         }
 
-        // 关闭弹窗
+        // --- 电话弹窗逻辑 ---
+        function openCallModal() {
+            const modal = document.getElementById('call-modal-overlay');
+            modal.classList.remove('hidden');
+        }
+
+        function closeCallModal() {
+            const modal = document.getElementById('call-modal-overlay');
+            modal.classList.add('hidden');
+        }
+
+        function makeCall() {
+            window.location.href = 'tel:13915561401';
+            closeCallModal();
+        }
+
+        // 关闭产品详情弹窗
         function closeModal(event) {
             if(event) event.stopPropagation();
             const modalOverlay = document.getElementById('modal-overlay');
-            const modalContent = document.getElementById('modal-content');
             
             modalOverlay.classList.remove('modal-enter');
-            modalContent.classList.remove('modal-content-enter');
             modalOverlay.classList.add('modal-exit');
-            modalContent.classList.add('modal-content-exit');
             
             setTimeout(() => {
                 modalOverlay.classList.add('hidden');
                 modalOverlay.classList.remove('modal-exit');
-                modalContent.classList.remove('modal-content-exit');
                 document.body.style.overflow = '';
             }, 200);
         }
